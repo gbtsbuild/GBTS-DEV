@@ -1,0 +1,60 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - label: "Identity"
+        name: "identity"
+        file: "content/site/identity.md"
+        fields:
+          - { label: "Site Name", name: "site_name", widget: "string" }
+          - { label: "Logo", name: "logo", widget: "image" }
+
+  - name: "about"
+    label: "About Section"
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "content/about.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "markdown" }
+
+  - name: "collections"
+    label: "Product Collections"
+    folder: "content/collections"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Image", name: "image", widget: "image" }
+
+  - name: "products"
+    label: "Products"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Price", name: "price", widget: "string" }
+      - { label: "Description", name: "description", widget: "markdown" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Collection", name: "collection", widget: "relation", collection: "collections", search_fields: ["title"], value_field: "title", display_fields: ["title"] }
+
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
